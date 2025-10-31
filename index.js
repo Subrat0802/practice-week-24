@@ -94,6 +94,29 @@ app.post("/signin", async (req, res) => {
   }
 });
 
+app.get("/users", async (req, res) => {
+    try{    
+        const users = await User.find();
+
+        if(!users){
+            return res.status(400).json({
+                message:"Error while getting users",
+                success:false
+            })
+        }
+
+        res.json({
+            users: users
+        })
+
+    }catch(error){
+        return res.status(500).json({
+            message:"Error while getting all users",
+            success:false
+        })
+    }
+})
+
 app.listen(3000, () => {
   console.log("App is running at port 3000");
 });
