@@ -98,15 +98,17 @@ app.get("/users", async (req, res) => {
     try{    
         const users = await User.find();
 
-        if(!users){
+        if(users.length === 0){
             return res.status(400).json({
-                message:"Error while getting users",
+                message:"No users found",
                 success:false
             })
         }
 
-        res.json({
-            users: users
+        res.status(200).json({
+            message: "Users fetched successfully",
+            success: true,
+            users
         })
 
     }catch(error){
